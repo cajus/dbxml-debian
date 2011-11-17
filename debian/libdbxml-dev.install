@@ -1,0 +1,3 @@
+usr/lib/*/libdbxml.a
+usr/lib/*/libdbxml.so
+usr/include/dbxml

@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+UPSTREAM = http://download.oracle.com/berkeley-db
+PACKAGE := $(shell dpkg-parsechangelog | sed -ne 's/^Source: \(.*\)$$/\1/p')
+SRC_VERSION := $(shell dpkg-parsechangelog | sed -ne 's/^Version: \(\([0-9]\+\):\)\?\(.*\)-.*/\3/p')
+TARBALL = $(PACKAGE)_$(SRC_VERSION).orig.tar.gz
+
+.PHONY: get-orig-source
+get-orig-source:
+	rm -rf get-orig-source $(TARBALL)
+	mkdir -p get-orig-source/tmp
+	wget -O get-orig-source/$(PACKAGE)-$(SRC_VERSION).tar.gz $(UPSTREAM)/$(PACKAGE)-$(SRC_VERSION).tar.gz
+	tar xfz get-orig-source/$(PACKAGE)-$(SRC_VERSION).tar.gz -C get-orig-source/tmp
+	mv get-orig-source/tmp/$(PACKAGE)-$(SRC_VERSION)/dbxml get-orig-source/$(PACKAGE)-$(SRC_VERSION)
+	GZIP='--best --no-name' tar czf $(TARBALL) -C get-orig-source --exclude build_windows $(PACKAGE)-$(SRC_VERSION)
+	rm -rf get-orig-source
+	echo "  "$(TARBALL)" created; move it to the right destination to build the package"
+
+
+override_dh_auto_configure:
+	dh_auto_configure -- --enable-test --disable-rpath --with-berkeleydb=/usr --with-xqilla=/usr --with-xerces=/usr --with-zlib=/usr
+
+%:
+	dh  $@ --with python2
