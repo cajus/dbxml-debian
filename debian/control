@@ -2,12 +2,12 @@ Source: dbxml
 Section: database
 Priority: optional
 Maintainer: Cajus Pollmeier <cajus@debian.org>
-Build-Depends: debhelper (>= 8.9.0~), autotools-dev, autoconf, automake, libdb++-dev (>= 4.8.26), libxqilla-dev (>= 2.2.3), libxerces-c-dev (>= 3.0.1), zlib1g-dev, python (>= 2.6.6-3~), libperl-dev, php5-dev, tcl8.5-dev
+Build-Depends: debhelper (>= 8.9.0~), autotools-dev, libtool, autoconf, automake, libdb++-dev (>= 4.8.26), libdb-dev (>= 4.8.26), libxqilla-dev (>= 2.2.3), libxerces-c-dev (>= 3.0.1), zlib1g-dev, python (>= 2.6.6-3~), libperl-dev, php5-dev, tcl-dev, swig
 Standards-Version: 3.9.2
 X-Python-Version: 2.7
 Homepage: http://www.oracle.com/us/products/database/berkeley-db/index-066571.html
 
-Package: libdbxml
+Package: libdbxml-2.5
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -24,7 +24,7 @@ Package: libdbxml-dev
 Architecture: any
 Section: libdevel
 Priority: extra
-Depends: libdbxml (= ${binary:Version}), libdb-dev (>= 4.8.26), ${misc:Depends}
+Depends: libdbxml-2.5 (= ${binary:Version}), libdb-dev (>= 4.8.26), ${misc:Depends}
 Suggests: dbxml-doc
 Description: Oracle Berkeley DB XML libraries [development]
  Embedded native XML database library.
@@ -35,7 +35,7 @@ Package: dbxml-doc
 Architecture: all
 Section: doc
 Depends: ${misc:Depends}
-Suggests: libdbxml
+Suggests: libdbxml-2.5
 Description: Oracle Berkeley DB XML [HTML documentation]
  Embedded native XML database library.
  .
@@ -43,16 +43,25 @@ Description: Oracle Berkeley DB XML [HTML documentation]
 
 Package: dbxml-util
 Architecture: any
-Depends: libdbxml (= ${binary:Version}), ${misc:Depends}, ${shlibs:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
 Suggests: db-util
 Description: Oracle Berkeley DB XML utilities
  Embedded native XML database library.
  .
  Various tools for manipulating Berkeley DB XML database files.
 
+Package: python-dbxml
+Architecture: any
+Section: python
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}
+Provides: ${python:Provides}
+Description: Oracle Berkeley DB XML Python bindings
+ Embedded native XML database library.
+ .
+ This package provides the Python DB XML bindings.
+
 # Bindings:
 # * java
-# * python
 # * perl
 # * tcl
 # * php

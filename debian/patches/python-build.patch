@@ -1,0 +1,19 @@
+--- a/src/python/setup.py.in
++++ b/src/python/setup.py.in
+@@ -71,14 +71,14 @@
+   INCLUDES.append(os.path.join(dbxml_home,"include"))
+   INCLUDES.append(os.path.join(db_home, "include"))
+ 
+-  LIBDIRS =     [os.path.join(dbxml_home,"build_unix/.libs"),
++  LIBDIRS =     [os.path.join(dbxml_home,".libs"),
+                  os.path.join(dbxml_home, "lib"),
+                  os.path.join(db_home, "lib"),
+                  os.path.join(xqilla_home, "lib"),
+                  os.path.join(xerces_home, "lib")]
+ 
+   LIBS =        ["dbxml",
+-                 "db-4",
++                 "db-5.1",
+                  "xqilla", "xerces-c"]
+ 
+   DATAFILES =   []

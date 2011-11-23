@@ -1,0 +1,4 @@
+perl-build.patch
+python-build.patch
+libtool.patch
+multiarch.patch

@@ -1,0 +1,52 @@
+--- a/dist/aclocal/options.ac
++++ b/dist/aclocal/options.ac
+@@ -49,14 +49,14 @@
+ DB_UTIL_PATH="<replace_with:_path_to_db_build>/build_unix"
+ 
+ # Check for a DB install tree
+-if test `ls "$with_berkeleydb"/lib/libdb-*.la 2>/dev/null | wc -l` -gt 0 ; then
++if test `ls "$with_berkeleydb"/lib/${DEB_HOST_MULTIARCH}/libdb-*.a 2>/dev/null | wc -l` -gt 0 ; then
+    	AC_MSG_CHECKING([for Berkeley DB version from install tree])
+-	db_version=`ls "$with_berkeleydb"/lib/libdb-*.la | sed 's/.*db-\(.*\).la/\1/'`
++	db_version=`ls "$with_berkeleydb"/lib/${DEB_HOST_MULTIARCH}/libdb_cxx-*.a | sed 's/.*db_cxx-\(.*\).a/\1/'`
+ 	AC_MSG_RESULT([$db_version])
+ 
+ 	DB_TCLLIB="<replace_with:_path_to_db_libs_with_tcl>/libdb_tcl-$db_version"
+   	berkeleydb_include="-I$with_berkeleydb/include"
+-	berkeleydb_lib="$with_berkeleydb/lib"
++	berkeleydb_lib="$with_berkeleydb/{$DEB_HOST_MULTIARCH}/lib"
+   	berkeleydb_library="db-$db_version"
+   	berkeleydb_jar="$with_berkeleydb/lib/db.jar"
+ 
+@@ -127,7 +127,7 @@
+ 	AC_MSG_ERROR([$with_berkeleydb not a valid Berkeley DB tree.  Note that Berkeley DB must be configured and built with '--enable-cxx'.])
+ fi
+ 
+-if test "$db_version" != "4.3" && test "$db_version" != "4.4" && test "$db_version" != "4.5" && test "$db_version" != "4.6" && test "$db_version" != "4.7" && test "$db_version" != "4.8"; then
++if test "$db_version" != "4.3" && test "$db_version" != "4.4" && test "$db_version" != "4.5" && test "$db_version" != "4.6" && test "$db_version" != "4.7" && test "$db_version" != "4.8" && test "$db_version" != "5.1"; then
+ 		AC_MSG_ERROR([$with_berkeleydb is version $db_version, which is not a supported version of Berkeley DB. The version must be at least 4.3])
+ fi
+ 
+@@ -317,19 +317,19 @@
+      AC_MSG_CHECKING([if the ZLIB library is present])
+      if test `ls $with_zlib/lib/libz.a 2>/dev/null | wc -l` -gt 0 ; then
+         AC_MSG_RESULT([yes])
+-        zlib_lib="-L$with_zlib/lib -R$with_zlib/lib"
++        zlib_lib="-L$with_zlib/lib"
+         zlib_library="-lz"
+         zlib_include="-I$with_zlib/include"
+         with_zlib="$with_zlib/lib"
+      elif test `ls $with_zlib/libz.a 2>/dev/null | wc -l` -gt 0 ; then
+         if test `ls $with_zlib/include/zlib.h 2>/dev/null | wc -l` -gt 0 ; then
+                 AC_MSG_RESULT([yes])
+-                zlib_lib="-L$with_zlib -R$with_zlib"
++                zlib_lib="-L$with_zlib"
+                 zlib_library="-lz"
+                 zlib_include="-I$with_zlib/include"
+         elif test `ls $with_zlib/../include/zlib.h 2>/dev/null | wc -l` -gt 0 ; then
+                 AC_MSG_RESULT([yes])
+-                zlib_lib="-L$with_zlib -R$with_zlib"
++                zlib_lib="-L$with_zlib"
+                 zlib_library="-lz"
+                 zlib_include="-I$with_zlib/../include"
+         fi

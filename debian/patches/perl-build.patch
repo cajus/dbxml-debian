@@ -1,0 +1,20 @@
+--- a/src/perl/config.in
++++ b/src/perl/config.in
+@@ -16,7 +16,7 @@
+ # are installed.
+ 
+ DBXML_LIB_NAME = dbxml-@DBXML_VERSION_MAJOR@.@DBXML_VERSION_MINOR@
+-DBXML_LIB_PATH = ../../build_unix/.libs
++DBXML_LIB_PATH = ../../.libs
+ DBXML_INC_PATH = ../../include
+ 
+ # Step 3: Where is the Berkeley DB C++ library?
+@@ -29,7 +29,7 @@
+ # Set the BDB_INC_PATH variable to directory where the Berkeley DB include files
+ # are installed.
+ 
+-BDB_LIB_NAME = db_cxx-4
++BDB_LIB_NAME = db_cxx-5.1
+ BDB_LIB_PATH = @DB_DIR@/lib
+ BDB_INC_PATH = @DB_DIR@/include
+ 

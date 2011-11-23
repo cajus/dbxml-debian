@@ -5,6 +5,14 @@ PACKAGE := $(shell dpkg-parsechangelog | sed -ne 's/^Source: \(.*\)$$/\1/p')
 SRC_VERSION := $(shell dpkg-parsechangelog | sed -ne 's/^Version: \(\([0-9]\+\):\)\?\(.*\)-.*/\3/p')
 TARBALL = $(PACKAGE)_$(SRC_VERSION).orig.tar.gz
 
+CONFIGURE_SWITCHES = --disable-rpath \
+		     --with-berkeleydb=/usr \
+		     --with-xqilla=/usr \
+		     --with-xerces=/usr \
+		     --with-zlib=/usr \
+		     --enable-tcl \
+		     --with-tcl=/usr/lib
+
 .PHONY: get-orig-source
 get-orig-source:
 	rm -rf get-orig-source $(TARBALL)
@@ -18,7 +26,28 @@ get-orig-source:
 
 
 override_dh_auto_configure:
-	dh_auto_configure -- --enable-test --disable-rpath --with-berkeleydb=/usr --with-xqilla=/usr --with-xerces=/usr --with-zlib=/usr
+	aclocal
+	libtoolize --force --copy --automake
+	automake
+	autoconf
+	dh_auto_configure -- $(CONFIGURE_SWITCHES)
+	
+	# Disable rpath manually, because the built-in upstream mechanism
+	# gets overwritten by config.status.
+	sed -i 's/^hardcode_libdir_flag_spec.*$$'/'hardcode_libdir_flag_spec=" -D__LIBTOOL_NO_RPATH__ "/' libtool
+	
+	# Configure perl bindings
+	dh_auto_build --sourcedirectory=src/perl
+
+override_dh_auto_build:
+	dh_auto_build
+	dh_auto_build --sourcedirectory=src/python -- --with-dbxml=$(CURDIR)
+	dh_auto_build --sourcedirectory=src/perl
+
+override_dh_auto_install:
+	dh_auto_install
+	dh_auto_install --sourcedirectory=src/python
+	dh_auto_install --sourcedirectory=src/perl
 
 %:
 	dh  $@ --with python2
