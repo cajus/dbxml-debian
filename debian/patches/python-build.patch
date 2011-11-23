@@ -17,3 +17,37 @@
                   "xqilla", "xerces-c"]
  
    DATAFILES =   []
+--- a/dist/swig/dbxml_python.i
++++ b/dist/swig/dbxml_python.i
+@@ -491,11 +491,11 @@
+ }
+ 
+ %init %{
+-	static const int dbMajorMin=4;
+-	static const int dbMinorMin=3;
++	static const int dbMajorMin=5;
++	static const int dbMinorMin=1;
+ 	int major, minor, patch, dmajor, dminor, dpatch;
+ 	(void) db_version(&major, &minor, &patch);
+-	if (major < dbMajorMin || minor < dbMinorMin) {
++	if (major < dbMajorMin) {
+ 		char buf[512];
+ 		PyOS_snprintf(buf, sizeof(buf), "Version mismatch: Berkeley DB XML %d.%d.%d requires Berkeley DB \n%d.%d or higher; version %d.%d.%d was found\n",
+ 			      DBXML_VERSION_MAJOR, DBXML_VERSION_MINOR,
+--- a/src/python/dbxml_python_wrap.cpp
++++ b/src/python/dbxml_python_wrap.cpp
+@@ -42261,11 +42261,11 @@
+   
+   
+   
+-  static const int dbMajorMin=4;
+-  static const int dbMinorMin=3;
++  static const int dbMajorMin=5;
++  static const int dbMinorMin=1;
+   int major, minor, patch, dmajor, dminor, dpatch;
+   (void) db_version(&major, &minor, &patch);
+-  if (major < dbMajorMin || minor < dbMinorMin) {
++  if (major < dbMajorMin) {
+     char buf[512];
+     PyOS_snprintf(buf, sizeof(buf), "Version mismatch: Berkeley DB XML %d.%d.%d requires Berkeley DB \n%d.%d or higher; version %d.%d.%d was found\n",
+       DBXML_VERSION_MAJOR, DBXML_VERSION_MINOR,

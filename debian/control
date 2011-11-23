@@ -2,7 +2,7 @@ Source: dbxml
 Section: database
 Priority: optional
 Maintainer: Cajus Pollmeier <cajus@debian.org>
-Build-Depends: debhelper (>= 8.9.0~), autotools-dev, libtool, autoconf, automake, libdb++-dev (>= 4.8.26), libdb-dev (>= 4.8.26), libxqilla-dev (>= 2.2.3), libxerces-c-dev (>= 3.0.1), zlib1g-dev, python (>= 2.6.6-3~), libperl-dev, php5-dev, tcl-dev, swig
+Build-Depends: debhelper (>= 8.9.0~), autotools-dev, libtool, autoconf, automake, libdb++-dev (>= 4.8.26), libdb-dev (>= 4.8.26), libxqilla-dev (>= 2.2.3), libxerces-c-dev (>= 3.0.1), zlib1g-dev, python-dev (>= 2.6.6-3~), libperl-dev, php5-dev, tcl-dev, swig
 Standards-Version: 3.9.2
 X-Python-Version: 2.7
 Homepage: http://www.oracle.com/us/products/database/berkeley-db/index-066571.html
