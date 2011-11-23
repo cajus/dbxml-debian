@@ -35,13 +35,11 @@ override_dh_auto_configure:
 	# Disable rpath manually, because the built-in upstream mechanism
 	# gets overwritten by config.status.
 	sed -i 's/^hardcode_libdir_flag_spec.*$$'/'hardcode_libdir_flag_spec=" -D__LIBTOOL_NO_RPATH__ "/' libtool
-	
-	# Configure perl bindings
-	dh_auto_build --sourcedirectory=src/perl
 
 override_dh_auto_build:
 	dh_auto_build
 	dh_auto_build --sourcedirectory=src/python -- --with-dbxml=$(CURDIR)
+	dh_auto_configure --sourcedirectory=src/perl
 	dh_auto_build --sourcedirectory=src/perl
 
 override_dh_auto_install:
