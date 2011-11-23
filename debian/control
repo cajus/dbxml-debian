@@ -60,8 +60,16 @@ Description: Oracle Berkeley DB XML Python bindings
  .
  This package provides the Python DB XML bindings.
 
+Package: libdbxml-perl
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Section: perl
+Description: Oracle Berkeley DB XML Perl bindings
+ Embedded native XML database library.
+ .
+ This package provides the Perl DB XML bindings.
+
 # Bindings:
 # * java
-# * perl
 # * tcl
 # * php
