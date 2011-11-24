@@ -20,6 +20,17 @@ Description: Oracle Berkeley DB XML libraries [runtime]
  .
  Runtime library for programs that use Berkeley DB XML databases.
 
+Package: libdbxml-2.5-dbg
+Architecture: any
+Multi-Arch: same
+Section: debug
+Priority: extra
+Depends: libdbxml-2.5 (= ${binary:Version}), ${misc:Depends}
+Description: Oracle Berkeley DB XML libraries [debug]
+ Embedded native XML database library.
+ .
+ Debug symbols for Berkeley DB XML database libraries and binaries.
+
 Package: libdbxml-dev
 Architecture: any
 Section: libdevel
@@ -62,14 +73,25 @@ Description: Oracle Berkeley DB XML Python bindings
 
 Package: libdbxml-perl
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}
 Section: perl
 Description: Oracle Berkeley DB XML Perl bindings
  Embedded native XML database library.
  .
  This package provides the Perl DB XML bindings.
 
+Package: libdbxml-tcl
+Architecture: any
+Section: interpreters
+Priority: extra
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${tcl:Depends}, ${shlibs:Depends}, ${misc:Depends}
+Description: Oracle Berkeley DB XML Tcl/Tk bindings
+ Embedded native XML database library.
+ .
+ This package provides Tcl/Tk DB XML bindings.
+
 # Bindings:
 # * java
-# * tcl
 # * php

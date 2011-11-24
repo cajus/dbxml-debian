@@ -42,14 +42,20 @@ override_dh_auto_build:
 	dh_auto_configure --sourcedirectory=src/perl
 	dh_auto_build --sourcedirectory=src/perl
 
+override_dh_strip:
+	dh_strip -s --dbg-package=libdbxml-2.5-dbg
+
 override_dh_auto_install:
 	dh_auto_install
 	
-	# Remove rpath from python library
-	find debian/tmp -name '_dbxml.so' | xargs chrpath -d
+	# Install bindings to their target destination
 	dh_auto_install --sourcedirectory=src/python
-	
 	dh_auto_install --sourcedirectory=src/perl
+	
+	# Remove rpath from bindings
+	find debian -name DbXml.so -o -name _dbxml.so | xargs chrpath -d
+	
+	tcltk-depends
 
 %:
 	dh  $@ --with python2
