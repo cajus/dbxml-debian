@@ -26,10 +26,6 @@ get-orig-source:
 
 
 override_dh_auto_configure:
-	#aclocal
-	#libtoolize --force --copy --automake
-	#automake
-	#autoconf
 	dh_auto_configure -- $(CONFIGURE_SWITCHES)
 	
 	# Disable rpath manually, because the built-in upstream mechanism
