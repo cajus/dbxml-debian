@@ -54,4 +54,4 @@ override_dh_auto_install:
 	tcltk-depends
 
 %:
-	dh  $@ --with python2
+	dh  $@ --with autoreconf --with python2
